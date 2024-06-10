@@ -2,17 +2,21 @@ import { ProductsIndex } from "./ProductsIndex";
 import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 export function Content() {
-  const products = [
-    {
-      name: "first",
-      price: 10,
-      image_url: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png",
-      description: "lots of text here now",
-    },
-  ];
+  const [products, setproducts] = useState([]);
 
+  const handleIndexproducts = () => {
+    console.log("handleIndexproducts");
+    axios.get("http://localhost:3000/products.json").then((response) => {
+      console.log(response.data);
+      setproducts(response.data);
+    });
+  };
+
+  useEffect(handleIndexproducts, []);
   return (
     <div>
       <Signup />
