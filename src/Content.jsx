@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 import { ProductsNew } from "./ProductsNew";
 import { CartedProductIndex } from "./CartedProductsIndex";
 import { Route, Routes } from "react-router-dom";
+import { Modal } from "./Modal";
 
 export function Content() {
   const [products, setproducts] = useState([]);
+  const [isShowProductVisible, setShowProductVisible] = useState(false);
 
   const handleIndexProducts = () => {
     console.log("handleIndexproducts");
@@ -27,17 +29,34 @@ export function Content() {
     });
   };
 
+  const handleOpenShowProduct = () => {
+    setShowProductVisible(true);
+    console.log("showProduct");
+  };
+
+  const handleCloseShowProduct = () => {
+    setShowProductVisible(false);
+  };
+
   useEffect(handleIndexProducts, []);
   return (
-    <div>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<LogoutLink />} />
-        <Route path="/cart" element={<CartedProductIndex />} />
-        <Route path="/new_product" element={<ProductsNew onCreateProduct={handleCreateProduct} />} />
-        <Route path="/products" element={<ProductsIndex products={products} />} />
-      </Routes>
+    <div className="container">
+      <div>
+        <Routes>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<LogoutLink />} />
+          <Route path="/cart" element={<CartedProductIndex />} />
+          <Route path="/new_product" element={<ProductsNew onCreateProduct={handleCreateProduct} />} />
+          <Route
+            path="/products"
+            element={<ProductsIndex products={products} onShowProduct={handleOpenShowProduct} />}
+          />
+        </Routes>
+        <Modal show={isShowProductVisible} onClose={handleCloseShowProduct}>
+          Hello
+        </Modal>
+      </div>
     </div>
   );
 }
