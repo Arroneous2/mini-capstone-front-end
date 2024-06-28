@@ -1,6 +1,33 @@
 import { Link } from "react-router-dom";
+import { LogoutLink } from "./LogoutLink";
 
 export function Header() {
+  let loggedInStatus;
+  if (localStorage.jwt) {
+    loggedInStatus = (
+      <ul className="dropdown-menu">
+        <li>
+          <LogoutLink />
+        </li>
+      </ul>
+    );
+  } else {
+    loggedInStatus = (
+      <ul className="dropdown-menu">
+        <li>
+          <a className="dropdown-item" href="/login">
+            Log In
+          </a>
+        </li>
+        <li>
+          <a className="dropdown-item" href="/signup">
+            Sign Up
+          </a>
+        </li>
+      </ul>
+    );
+  }
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -46,18 +73,7 @@ export function Header() {
                 >
                   Dropdown
                 </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="/login">
-                      Log In
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/signup">
-                      Sign Up
-                    </a>
-                  </li>
-                </ul>
+                {loggedInStatus}
               </li>
             </ul>
             <form className="d-flex" role="search">
