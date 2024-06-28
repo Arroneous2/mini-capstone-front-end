@@ -24,13 +24,18 @@ export function CartedProductIndex() {
   return (
     <div>
       {cartedProducts.map((cartedProduct) => (
-        <div key={cartedProduct.id}>
-          <p>name : {cartedProduct.product.name}</p>
-          <p>price : {cartedProduct.product.price}</p>
-          <p>quantity : {cartedProduct.quantity}</p>
+        <div className="card" style={{ minWidth: "25vw", maxWidth: "50vw" }} key={cartedProduct.id}>
+          <div className="card-body">
+            <h5 className="card-title">{cartedProduct.product.name}</h5>
+            <h6 className="card-title">{cartedProduct.product.price}</h6>
+            <p className="card-text">{cartedProduct.quantity}</p>
+          </div>
         </div>
       ))}
-      <button onClick={setOrderFromCartedProducts}> Buy Them ALL!!!!!</button>
+      <button className="btn btn-primary" onClick={setOrderFromCartedProducts}>
+        {" "}
+        Buy Them ALL!!!!!
+      </button>
     </div>
   );
 }

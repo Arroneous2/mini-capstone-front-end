@@ -3,6 +3,8 @@ import { useState } from "react";
 
 export function Signup() {
   const [errors, setErrors] = useState([]);
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,16 +33,35 @@ export function Signup() {
       </ul>
       <form onSubmit={handleSubmit}>
         <div>
-          Name: <input name="name" type="text" />
+          Name:
+          <input name="name" type="text" />
         </div>
         <div>
           Email: <input name="email" type="email" />
         </div>
         <div>
-          Password: <input name="password" type="password" />
+          Password:
+          <input
+            name="password"
+            type="password"
+            value={password}
+            minLength={8}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <small>{password.length < 8 ? "Characters left " + (8 - password.length).toString() : ""}</small>
         </div>
         <div>
-          Password confirmation: <input name="password_confirmation" type="password" />
+          Password confirmation:
+          <input
+            name="password_confirmation"
+            type="password"
+            value={passwordConfirmation}
+            minLength={8}
+            onChange={(event) => setPasswordConfirmation(event.target.value)}
+          />
+          <small>
+            {passwordConfirmation.length < 8 ? "Characters left " + (8 - passwordConfirmation.length).toString() : ""}
+          </small>
         </div>
         <button type="submit">Signup</button>
       </form>
